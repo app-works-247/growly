@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growly - Bé Làm Việc Nhà | App Rèn Luyện Thói Quen Tự Giác Cho Con</title>
+    <meta name="description" content="Growly là ứng dụng iOS rèn luyện thói quen tự giác làm việc nhà cho bé dưới 10 tuổi qua hình thức tích lũy Gạo, đổi quà và quy đổi điểm thưởng gia đình.">
+    <meta name="keywords" content="Growly, Bé làm việc nhà, dạy con tự giác, quản lý việc nhà cho bé, đổi quà việc nhà">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-cream: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --green-deep: #4F46E5;    /* Vibrant Indigo */
+            --green-mid: #6366F1;     /* Indigo Violet */
+            --green-light: #EEF2FF;   /* Soft Lavender Tint */
+            --amber-main: #FF6B6B;    /* Coral Pink Accent */
+            --amber-light: #FFE4E6;   /* Pastel Rose Accent */
+            --cyan-accent: #0EA5E9;   /* Sky Blue */
+            --text-dark: #0F172A;     /* Slate Navy */
+            --text-muted: #64748B;    /* Slate Gray */
+            --shadow-soft: 0 10px 30px rgba(79, 70, 229, 0.08);
+            --shadow-hover: 0 18px 40px rgba(79, 70, 229, 0.16);
+            --radius-lg: 20px;
+            --radius-md: 14px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .brand-logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(248, 250, 252, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(79, 70, 229, 0.08);
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--green-deep);
+            text-decoration: none;
+        }
+
+        .brand-logo span {
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--green-mid);
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, var(--green-deep), #3730A3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 80px 5% 60px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--green-light);
+            color: var(--green-deep);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.25;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--amber-main);
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            max-width: 540px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--green-deep);
+            border: 2px solid var(--green-light);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--green-mid);
+            background-color: var(--green-light);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(79, 70, 229, 0.1);
+        }
+
+        .stat-item h4 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--green-deep);
+        }
+
+        .stat-item p {
+            font-size: 0.85rem;
+            margin-bottom: 0;
+            color: var(--text-muted);
+        }
+
+        .hero-preview {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-mockup {
+            width: 310px;
+            background: white;
+            border-radius: 40px;
+            padding: 16px;
+            box-shadow: var(--shadow-hover);
+            border: 8px solid #0F172A;
+            position: relative;
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .phone-mockup:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .phone-screen {
+            background: var(--bg-cream);
+            border-radius: 28px;
+            padding: 20px 16px;
+            overflow: hidden;
+        }
+
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .child-chip {
+            background: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--green-deep);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stats-badge-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .badge-card {
+            background: white;
+            padding: 12px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .badge-card .value {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--amber-main);
+        }
+
+        .badge-card .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .task-demo-item {
+            background: white;
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            font-size: 0.85rem;
+        }
+
+        .task-demo-item strong {
+            color: var(--green-deep);
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: white;
+            padding: 12px 18px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dark);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .badge-top-left {
+            top: 20px;
+            left: -30px;
+        }
+
+        .badge-bottom-right {
+            bottom: 30px;
+            right: -20px;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* --- Section Shared --- */
+        section {
+            padding: 80px 5%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--green-deep);
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* --- Benefits Grid --- */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(79, 70, 229, 0.06);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--green-light);
+        }
+
+        .benefit-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 18px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--green-deep);
+            margin-bottom: 10px;
+        }
+
+        .benefit-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- Features Showcase --- */
+        .features-showcase {
+            background: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: var(--shadow-soft);
+            margin-top: 40px;
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .feature-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-row.reverse {
+            direction: rtl;
+        }
+
+        .feature-row.reverse .feature-text {
+            direction: ltr;
+        }
+
+        .feature-text h3 {
+            font-size: 1.8rem;
+            color: var(--green-deep);
+            margin-bottom: 14px;
+        }
+
+        .feature-text p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .feature-list li span {
+            color: var(--green-mid);
+        }
+
+        .feature-box-demo {
+            background: var(--bg-cream);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px dashed var(--green-light);
+        }
+
+        /* --- Interactive Grain Calculator --- */
+        .calculator-widget {
+            background: linear-gradient(135deg, #4F46E5, #312E81);
+            color: white;
+            border-radius: 30px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .calculator-widget h2 {
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .calc-input-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .calc-input-group input {
+            width: 140px;
+            padding: 14px;
+            font-size: 1.4rem;
+            border-radius: 14px;
+            border: none;
+            text-align: center;
+            font-weight: 800;
+            color: var(--green-deep);
+        }
+
+        .calc-result {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #FFB703;
+        }
+
+        /* --- Contact Section --- */
+        .contact-section {
+            background: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px;
+            background: var(--bg-cream);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateX(6px);
+            background: var(--green-light);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .contact-details h4 {
+            font-size: 1.1rem;
+            color: var(--green-deep);
+        }
+
+        .contact-details p {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #0F172A;
+            color: white;
+            padding: 50px 5% 30px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #818CF8;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 20px 0 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero, .feature-row, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.3rem;
+            }
+            .hero-preview {
+                margin-top: 40px;
+            }
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="brand-logo">
+            <span>🌾</span> Growly
+        </a>
+        <nav>
+            <a href="#benefits">Lợi Ích</a>
+            <a href="#features">Tính Năng</a>
+            <a href="#calculator">Tính Thưởng</a>
+            <a href="#contact">Liên Hệ</a>
+        </nav>
+        <a href="#contact" class="btn-cta">Tải Ứng Dụng 🚀</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">✨ Rèn Luyện Thói Quen Tự Giác Cho Con</div>
+            <h1>Bé Làm Việc Nhà,<br>Tích <span>Hạt Gạo Vàng 🌾</span></h1>
+            <p>Ứng dụng Growly giúp phụ huynh rèn luyện thói quen tự giác làm việc nhà cho trẻ dưới 10 tuổi thông qua hệ thống thưởng Gạo, đổi quà và thăng cấp vui nhộn.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-cta">Tải Cho iOS (iPhone/iPad) 📱</a>
+                <a href="#calculator" class="btn-secondary">Quy Đổi Gạo 🔀</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h4>5.0 ⭐</h4>
+                    <p>Đánh giá phụ huynh</p>
+                </div>
+                <div class="stat-item">
+                    <h4>10.000+</h4>
+                    <p>Gia đình tin dùng</p>
+                </div>
+                <div class="stat-item">
+                    <h4>100%</h4>
+                    <p>Tự giác vui vẻ</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-preview">
+            <div class="floating-badge badge-top-left">
+                <span>🎁</span> Bé đổi quà thích mê!
+            </div>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="screen-header">
+                        <div class="child-chip">
+                            <span>👦</span> Gia Minh (Siêu sao 🌈)
+                        </div>
+                    </div>
+                    <div class="stats-badge-row">
+                        <div class="badge-card">
+                            <div class="value">120 🌾</div>
+                            <div class="label">Kho Gạo</div>
+                        </div>
+                        <div class="badge-card">
+                            <div class="value">350 ⭐</div>
+                            <div class="label">Điểm Sao</div>
+                        </div>
+                    </div>
+                    <div class="task-demo-item">
+                        <span>🧹 Lau bàn ăn giúp mẹ</span>
+                        <strong>+20 🌾</strong>
+                    </div>
+                    <div class="task-demo-item">
+                        <span>👕 Gấp quần áo xong</span>
+                        <strong>+15 🌾</strong>
+                    </div>
+                    <div class="task-demo-item">
+                        <span>🧸 Dọn đồ chơi ngăn nắp</span>
+                        <strong>+25 🌾</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-badge badge-bottom-right">
+                <span>💪</span> Tự giác +20% Gạo
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits">
+        <div class="section-header">
+            <h2>Lợi Ích Cho Cả Gia Đình 👨‍👩‍👧‍👦</h2>
+            <p>Growly không chỉ là ứng dụng làm việc nhà, mà là cầu nối tạo dựng niềm vui và thói quen tích cực cho bé mỗi ngày.</p>
+        </div>
+
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">🤝</div>
+                <h3>Hợp Tác Vui Vẻ</h3>
+                <p>Biến công việc nhà thành trò chơi tích Gạo thưởng, giúp bé chủ động tham gia thay vì bị nhắc nhở.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🕊️</div>
+                <h3>Giảm Căng Thẳng</h3>
+                <p>Phụ huynh không còn phải giục giã hay cằn nhằn mỗi ngày. Mọi công việc diễn ra tự nhiên và vui vẻ.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🌱</div>
+                <h3>Rèn Luyện Tự Giác</h3>
+                <p>Chế độ thưởng thêm điểm cho bé làm việc tự giác, tạo động lực rèn thói quen tốt từ nhỏ.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3>Quản Lý Tài Chính</h3>
+                <p>Bé học được giá trị của lao động thông qua việc tích lũy Gạo và quy đổi sang quà hoặc tiền tiết kiệm.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🌟</div>
+                <h3>Bảng Thăng Cấp Hiệu Ứng</h3>
+                <p>Hệ thống danh hiệu từ "Bé mới 🐣" đến "Tuyệt vời 👑" tạo sự tự hào và hào hứng phấn đấu.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">📱</div>
+                <h3>Đồng Bộ Widget iOS</h3>
+                <p>Theo dõi số Gạo và thành tích của con ngay trên màn hình chính iPhone / iPad mượt mà.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Showcase -->
+    <section id="features">
+        <div class="section-header">
+            <h2>Tính Năng Nổi Bật 🚀</h2>
+            <p>Được thiết kế tỉ mỉ phù hợp với tâm lý trẻ dưới 10 tuổi và sự tiện lợi cho cha mẹ.</p>
+        </div>
+
+        <div class="features-showcase">
+            <div class="feature-row">
+                <div class="feature-text">
+                    <h3>📋 Nhật Ký Việc Nhà Sinh Động</h3>
+                    <p>Giao diện nút bấm to rõ, emoji thân thương giúp bé dễ dàng chọn công việc đã làm và gửi phụ huynh ghi nhận.</p>
+                    <ul class="feature-list">
+                        <li><span>✔</span> Thêm/chỉnh sửa công việc linh hoạt theo gia đình</li>
+                        <li><span>✔</span> Chọn việc tự giác nhận thêm 20% Gạo thưởng</li>
+                        <li><span>✔</span> Ghi chú lời nhắn khen ngợi động viên bé</li>
+                    </ul>
+                </div>
+                <div class="feature-box-demo">
+                    <span style="font-size: 4rem;">🧹🧽👕</span>
+                    <h4 style="margin-top: 10px; color: var(--green-deep);">Việc Nhà Thần Tốc</h4>
+                </div>
+            </div>
+
+            <div class="feature-row reverse">
+                <div class="feature-text">
+                    <h3>🎁 Kho Quà & Quy Đổi Điểm</h3>
+                    <p>Đổi lấy những phần thưởng ý nghĩa như xem phim, đi công viên hoặc quy đổi sang tiền mừng tiết kiệm cho bé.</p>
+                    <ul class="feature-list">
+                        <li><span>✔</span> Đổi quà nhanh (Xem hoạt hình, ăn kem...)</li>
+                        <li><span>✔</span> Quà tích lũy dài hạn (Sách, đồ chơi...)</li>
+                        <li><span>✔</span> Quy đổi Gạo sang VNĐ minh bạch</li>
+                    </ul>
+                </div>
+                <div class="feature-box-demo">
+                    <span style="font-size: 4rem;">🎁🍦🎮</span>
+                    <h4 style="margin-top: 10px; color: var(--green-deep);">Đổi Quà Thích Mê</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Calculator -->
+    <section id="calculator">
+        <div class="calculator-widget">
+            <h2>🔀 Công Cụ Tính Đổi Gạo Thử Nghiệm</h2>
+            <p>Thử nhập số Gạo tích lũy của bé để xem giá trị quy đổi tương ứng:</p>
+            <div class="calc-input-group">
+                <span>Số Gạo của bé:</span>
+                <input type="number" id="grainInput" value="100" min="0" oninput="calculateCash()">
+                <span>🌾 Gạo</span>
+            </div>
+            <div class="calc-result" id="cashResult">
+                = 50.000 VNĐ
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-section">
+            <div class="section-header">
+                <h2>Liên Hệ & Tải Ứng Dụng 📞</h2>
+                <p>Chúng tôi luôn sẵn sàng hỗ trợ quý phụ huynh cài đặt và sử dụng ứng dụng Growly cho gia đình.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-cards">
+                    <a href="tel:0987563110" class="contact-card">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>Số Điện Thoại / HotLine</h4>
+                            <p>0987563110</p>
+                        </div>
+                    </a>
+
+                    <a href="https://zalo.me/0987563110" target="_blank" class="contact-card">
+                        <div class="contact-icon">💬</div>
+                        <div class="contact-details">
+                            <h4>Tư Vấn Qua Zalo</h4>
+                            <p>0987563110 (Bấm để nhắn Zalo)</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:daovansonbg@gmail.com" class="contact-card">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h4>Email Hỗ Trợ</h4>
+                            <p>daovansonbg@gmail.com</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="contact-box-extra" style="background: var(--bg-cream); padding: 30px; border-radius: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <span style="font-size: 3.5rem; margin-bottom: 12px;">📲</span>
+                    <h3 style="color: var(--green-deep); margin-bottom: 10px;">Tải Ngay Ứng Dụng Growly</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">Dành riêng cho iPhone & iPad trên App Store iOS 17+</p>
+                    <a href="tel:0987563110" class="btn-cta">Liên Hệ Tải App Ngay 🚀</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">🌾 Growly - Bé Làm Việc Nhà</div>
+        <p>Hệ thống rèn luyện thói quen tự giác cho bé hàng đầu Việt Nam</p>
+        <div class="footer-links">
+            <a href="#benefits">Lợi Ích</a>
+            <a href="#features">Tính Năng</a>
+            <a href="#calculator">Công Cụ Quy Đổi</a>
+            <a href="#contact">Liên Hệ</a>
+        </div>
+        <div class="copyright">
+            © 2026 Growly App. All rights reserved. | Liên hệ: 0987563110 | Email: daovansonbg@gmail.com
+        </div>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        function calculateCash() {
+            const grain = parseInt(document.getElementById('grainInput').value) || 0;
+            const rate = 500; // 1 Grain = 500 VND default
+            const totalCash = grain * rate;
+            document.getElementById('cashResult').innerHTML = '= ' + totalCash.toLocaleString('vi-VN') + ' VNĐ';
+        }
+    </script>
+</body>
+</html>
